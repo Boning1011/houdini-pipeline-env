@@ -35,7 +35,7 @@
 ## Studio Architecture {#studio-architecture}
 
 ### Our Setup
-- **Artists**: <5 Windows workstations
+- **Artists**: ~5 Windows workstations
 - **Render Farm**: 2 Linux GPU nodes + 2 Windows GPU nodes 
 - **Storage**: Central NAS with dual-platform access
 - **Pipeline**: Deadline integration + custom tools
@@ -114,16 +114,7 @@ ____STUDIO_PACKAGES/
 ✅ **Clear separation**: Artist vs farm configs obvious
 
 ### Potential Improvements
-```json
-// Add to bootstrap configs:
-{
-  "bootstrap_metadata": {
-    "config_type": "artist",
-    "last_sync": "auto_timestamp",
-    "fallback_behavior": "local_cache_if_nas_down"
-  }
-}
-```
+
 
 💡 **Consider**: Bootstrap validation script to test NAS connectivity
 
@@ -262,6 +253,6 @@ compare_env_vs_package.py
 
 *This documentation grows with our pipeline. Add examples, gotchas, and improvements as encountered.*
 
-**Last Updated**: [Current Date]  
-**Studio Size**: <5 artists, 4 render nodes  
+**Last Updated**: [2025-08-25]  
+**Studio Size**: <5 Houdini artists, 4 render nodes  
 **Houdini Versions**: 20.5
