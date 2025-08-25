@@ -1,0 +1,11 @@
+{
+  "env": [
+    {
+      "MEGASCANS_PLUGIN": [
+        {"houdini_os == 'windows'": "//Vvox-nas-1/deadline10-read/Megascans Library/support/plugins/houdini/4.6/MSLiveLink"},
+        {"houdini_os == 'linux'": "/mnt/VVOX-NAS-1/deadline-read/Megascans Library/support/plugins/houdini/4.6/MSLiveLink"}
+      ]
+    }
+  ],
+  "hpath": "$MEGASCANS_PLUGIN"
+}

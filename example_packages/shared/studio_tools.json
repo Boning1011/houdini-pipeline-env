@@ -1,0 +1,27 @@
+{
+  "env": [
+    {
+      "VVOX_NAS_1": 
+        [
+          {"houdini_os == 'windows'": "//Vvox-nas-1"},
+          {"houdini_os == 'linux'": "/mnt/VVOX-NAS-1"}
+        ]
+    },
+    {"TOOLS": "${VVOX_NAS_1}/projects/_____ASSETS/3D/HOUDINI_ASSETS/____STUDIO_PACKAGES/tools"},
+    {"VVOX_TOOLS": "${TOOLS}/vvox-tools"},
+    {"MOTIONCOPS": "${TOOLS}/motion-cops"},
+    {"MOPS": "${TOOLS}/MOPS"},
+    {"AELIB": "${TOOLS}/Aelib"},
+    {"BNLIB": "${TOOLS}/Bnlib"}
+  ],
+  "hpath": [
+    {
+      "value":
+        ["$VVOX_TOOLS",
+        "$MOTIONCOPS",
+        "$MOPS", 
+        "$AELIB",
+        "$BNLIB"]
+    }
+  ]
+}

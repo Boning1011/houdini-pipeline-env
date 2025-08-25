@@ -1,0 +1,16 @@
+{
+    "package_path": [
+      {
+        "houdini_os == 'windows'": "//Vvox-nas-1/projects/_____ASSETS/3D/HOUDINI_ASSETS/____STUDIO_PACKAGES/shared"
+      },
+      {
+        "houdini_os == 'linux'": "/mnt/VVOX-NAS-1/projects/_____ASSETS/3D/HOUDINI_ASSETS/____STUDIO_PACKAGES/shared"
+      },
+      {
+        "houdini_os == 'windows'": "//Vvox-nas-1/projects/_____ASSETS/3D/HOUDINI_ASSETS/____STUDIO_PACKAGES/artist"
+      },
+      {
+        "houdini_os == 'linux'": "/mnt/VVOX-NAS-1/projects/_____ASSETS/3D/HOUDINI_ASSETS/____STUDIO_PACKAGES/artist"
+      }
+    ]
+  }

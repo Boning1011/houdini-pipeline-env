@@ -1,0 +1,23 @@
+{
+  "env": [
+    {
+      "VVOX_NAS_1":   
+        [
+          {"houdini_os == 'windows'": "//Vvox-nas-1"},
+          {"houdini_os == 'linux'": "/mnt/VVOX-NAS-1"}
+        ]
+    },
+    {
+      "MEGASCANS": "${VVOX_NAS_1}/deadline-read/Megascans Library"
+    },
+    {
+      "ASSETS": "${VVOX_NAS_1}/projects/_____ASSETS"
+    },
+    {
+      "HDRI_PATH": "${ASSETS}/TEXTURES/HDRI"
+    },
+    {
+      "HOUDINI_PATHMAP": "{\"//Vvox-nas-1/PROJECTS\":\"/mnt/VVOX-NAS-1/projects\",\"/mnt/VVOX-NAS-1/projects\":\"//Vvox-nas-1/PROJECTS\"}"
+    }
+  ]
+}

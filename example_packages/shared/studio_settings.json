@@ -1,0 +1,33 @@
+{
+  "env": [
+    {
+      "HOUDINI_VERSION": "20.5.445"
+    },
+    {
+      "HFS": [
+        [
+          {"houdini_os == 'windows'": "C:/Program Files/Side Effects Software/Houdini ${HOUDINI_VERSION}"},
+          {"houdini_os == 'linux'": "/opt/hfs${HOUDINI_VERSION}"}
+        ]
+      ]
+    },
+    {
+      "HOUDINI_HQUEUE_SERVER": "http://10.0.10.186:5000/"
+    },
+    {
+      "HOUDINI_HQUEUE_HFS_WINDOWS": "C:/Program Files/Side Effects Software/Houdini ${HOUDINI_VERSION}"
+    },
+    {
+      "HOUDINI_HQUEUE_HFS_LINUX" : "/opt/hfs${HOUDINI_VERSION}"
+    },
+    {
+      "HOUDINI_DSO_ERROR": "2"
+    },
+    {
+      "HOUDINI_PDG_NODE_DEBUG": "4"
+    },
+    {
+      "HOUDINI_DISABLE_OPENFX_DEFAULT_PATH": "1"
+    }
+  ]
+}
