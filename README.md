@@ -122,29 +122,15 @@ Consider bootstrap validation script to test NAS connectivity
 
 ### From houdini.env to Packages
 
-**Preparation**
-- Audit all existing houdini.env files
-- Identify common vs machine-specific settings
-- Create test packages on development machine
+**Backup** all current houdini.env files first.
 
-**Package Creation**
-- Build shared package with common tools
-- Create artist-specific package
-- Setup renderfarm package with minimal UI tools
-- Test cross-platform path resolution
+**Split settings** : shared (tools, assets) vs machine-specific (temp dirs, caches).
 
-**Rollout**
-- Deploy to one test workstation first
-- Migrate remaining artist machines
-- Update render farm nodes
-- Remove old houdini.env files after validation
+**Create packages** on NAS with JSON syntax. Test cross-platform paths.
 
-**Emergency Rollback Plan**
-1. Restore houdini.env files from backup
-2. Remove/rename package files
-3. Restart Houdini sessions
-4. Communicate to team
+**Deploy**: one test machine → artist machines → farm nodes.
 
+**Rollback**: restore env files, remove package references.
 ---
 
 ## Testing & Validation
