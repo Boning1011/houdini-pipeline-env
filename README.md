@@ -3,18 +3,18 @@
 *JSON-based environment management for small mixed-platform studios with render farms*
 
 ## Table of Contents
-- [Why Packages Over houdini.env](#why-packages)
+- [Why Packages Over houdini.env](#why-packages-over-houdinienv)
 - [Studio Architecture](#studio-architecture)
-- [Package Structure & Loading](#package-structure)
+- [Package Structure & Loading](#package-structure--loading)
 - [Bootstrap Strategy](#bootstrap-strategy)
 - [Migration Process](#migration-process)
-- [Testing & Validation](#testing-validation)
-- [Troubleshooting](#troubleshooting)
+- [Testing & Validation](#testing--validation)
 - [Future Improvements](#future-improvements)
+- [Debugging Commands](#debugging-commands)
 
 ---
 
-## Why Packages Over houdini.env {#why-packages}
+## Why Packages Over houdini.env
 
 ### The Problem with houdini.env
 - **Scattered files**: Each machine has its own env file
@@ -32,7 +32,7 @@
 
 ---
 
-## Studio Architecture {#studio-architecture}
+## Studio Architecture
 
 ### Our Setup
 - **Artists**: ~5 Windows workstations
@@ -53,7 +53,7 @@ ____STUDIO_PACKAGES/
 
 ---
 
-## Package Structure & Loading {#package-structure}
+## Package Structure & Loading
 
 ### Cross-Platform Path Handling
 ```json
@@ -77,8 +77,8 @@ ____STUDIO_PACKAGES/
 3. Artist OR Renderfarm (role-specific)
 ```
 
-⚠️ **TODO**: Document behavior when packages conflict
-⚠️ **TODO**: Add explicit priority handling in package metadata
+**TODO**: Document behavior when packages conflict  
+**TODO**: Add explicit priority handling in package metadata
 
 ### Package Metadata Template
 ```json
@@ -100,7 +100,7 @@ ____STUDIO_PACKAGES/
 
 ---
 
-## Bootstrap Strategy {#bootstrap-strategy}
+## Bootstrap Strategy
 
 ### Current Approach: Static Shortcuts
 - `vvox_artist.json` and `vvox_renderfarm.json` in bootstrap folder
@@ -108,55 +108,53 @@ ____STUDIO_PACKAGES/
 - Acts as immutable pointer to NAS-centralized configs
 
 ### Why This Works for Small Studios
-✅ **Consistency**: No config drift between machines
-✅ **Simple**: Artists can't accidentally break their setup
-✅ **Rollback safe**: Changes only happen at NAS level
-✅ **Clear separation**: Artist vs farm configs obvious
+- **Consistency**: No config drift between machines
+- **Simple**: Artists can't accidentally break their setup
+- **Rollback safe**: Changes only happen at NAS level
+- **Clear separation**: Artist vs farm configs obvious
 
 ### Potential Improvements
-
-
-💡 **Consider**: Bootstrap validation script to test NAS connectivity
+Consider bootstrap validation script to test NAS connectivity
 
 ---
 
-## Migration Process {#migration-process}
+## Migration Process
 
 ### From houdini.env to Packages
 
-**Phase 1: Preparation**
-- [ ] Audit all existing houdini.env files
-- [ ] Identify common vs machine-specific settings
-- [ ] Create test packages on development machine
+**Preparation**
+- Audit all existing houdini.env files
+- Identify common vs machine-specific settings
+- Create test packages on development machine
 
-**Phase 2: Package Creation**
-- [ ] Build shared package with common tools
-- [ ] Create artist-specific package
-- [ ] Setup renderfarm package with minimal UI tools
-- [ ] Test cross-platform path resolution
+**Package Creation**
+- Build shared package with common tools
+- Create artist-specific package
+- Setup renderfarm package with minimal UI tools
+- Test cross-platform path resolution
 
-**Phase 3: Rollout**
-- [ ] Week 1: Test on one artist workstation
-- [ ] Week 2: Deploy to remaining artist machines  
-- [ ] Week 3: Migrate render farm nodes
-- [ ] Week 4: Remove old houdini.env files
+**Rollout**
+- Deploy to one test workstation first
+- Migrate remaining artist machines
+- Update render farm nodes
+- Remove old houdini.env files after validation
 
 **Emergency Rollback Plan**
 1. Restore houdini.env files from backup
 2. Remove/rename package files
 3. Restart Houdini sessions
-4. Communication to team
+4. Communicate to team
 
 ---
 
-## Testing & Validation {#testing-validation}
+## Testing & Validation
 
 ### Pre-deployment Checklist
-- [ ] **Path Validation**: All paths accessible on Windows + Linux
-- [ ] **Houdini Startup**: Clean launch on test machines
-- [ ] **Tool Availability**: Custom tools load correctly
-- [ ] **Performance**: Startup time acceptable vs. houdini.env
-- [ ] **Asset Access**: Shared assets resolve properly
+- **Path Validation**: All paths accessible on Windows + Linux
+- **Houdini Startup**: Clean launch on test machines
+- **Tool Availability**: Custom tools load correctly
+- **Performance**: Startup time acceptable vs. houdini.env
+- **Asset Access**: Shared assets resolve properly
 
 ### Test Package Strategy
 Create `test_artist.json` with:
@@ -172,7 +170,6 @@ Create `test_artist.json` with:
 
 ### Validation Script Ideas
 ```bash
-# TODO: Create validation scripts
 check_nas_connectivity.py
 validate_package_paths.py  
 test_houdini_startup.py
@@ -181,73 +178,40 @@ compare_env_vs_package.py
 
 ---
 
-## Troubleshooting {#troubleshooting}
-
-### Common Issues
-
-**"Package not found" errors**
-- Check NAS connectivity
-- Verify mount points on Linux
-- Test UNC path access on Windows
-
-**Path resolution failures**
-- Validate JSON syntax
-- Check platform conditionals
-- Test path existence
-
-**Conflicting packages**
-- Document loading order
-- Check for duplicate settings
-- Use package metadata for debugging
-
-### Emergency Procedures
-1. **NAS Down**: Document offline workflow
-2. **Bad Package**: Rollback procedure
-3. **Artist Blocked**: Temporary local config
-
----
-
-## Future Improvements {#future-improvements}
+## Future Improvements
 
 ### Short Term
-- [ ] Add package versioning system
-- [ ] Create validation/testing scripts  
-- [ ] Document package conflict resolution
-- [ ] Build rollback automation
-
-### Medium Term  
-- [ ] Package update notification system
-- [ ] Automated testing pipeline
-- [ ] Performance monitoring
-- [ ] Multi-site package syncing
+- Add package versioning system
+- Create validation/testing scripts  
+- Document package conflict resolution
 
 ### Long Term
-- [ ] GUI package manager
-- [ ] Dynamic package loading
-- [ ] Integration with pipeline tools
-- [ ] Package sharing between studios
+- Package update notification system
+- GUI package manager
+- Integration with pipeline tools
 
 ---
 
-## Lessons Learned
+## Debugging Commands
 
-### What Worked
-- Bootstrap approach prevents config drift
-- Clear separation by role (artist/farm) 
-- JSON handles cross-platform paths well
-- Centralized updates save maintenance time
+### Python/Hython Environment Debugging
+```python
+import os
+print(os.environ.get("HOUDINI_PATH"))
+print(os.environ.get("HOUDINI_PACKAGE_PATH"))
 
-### What Could Be Better
-- Need explicit package priority rules
-- Missing validation/testing automation  
-- No rollback strategy initially
-- Package versioning added later
+# List all loaded packages
+import hou
+for package in hou.text.packageList():
+    print(package)
+```
 
-### For Other Small Studios
-- Start simple: shared + artist packages sufficient initially
-- Test thoroughly before studio-wide deployment
-- Plan rollback procedure before migration
-- Document everything - you'll forget the details
+### Hscript Environment Checking
+```hscript
+echo $HOUDINI_PATH
+echo $HOUDINI_PACKAGE_PATH
+echo $HIP
+```
 
 ---
 
